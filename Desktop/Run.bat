@@ -1,0 +1,1 @@
+python batch_resizer.py

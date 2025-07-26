@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Closest Multiple‑of‑4 Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 360px;
+      margin: 50px auto;
+      line-height: 1.5;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 25px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      display: none;
+    }
+    .result div {
+      margin-bottom: 10px;
+    }
+    .copy-btn {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Resolution Adjuster</h2>
+
+  <label for="width">Width:</label>
+  <input type="number" id="width" placeholder="Enter width" />
+
+  <label for="height">Height:</label>
+  <input type="number" id="height" placeholder="Enter height" />
+
+  <button id="calculate">Calculate Closest Multiple of 4</button>
+
+  <div class="result" id="result">
+    <div>
+      Adjusted Width: <strong id="adjWidth"></strong>
+      <button class="copy-btn" id="copyWidth">Copy</button>
+    </div>
+    <div>
+      Adjusted Height: <strong id="adjHeight"></strong>
+      <button class="copy-btn" id="copyHeight">Copy</button>
+    </div>
+  </div>
+
+  <script>
+    // Round to the nearest multiple of 4
+    function closestMultipleOf4(n) {
+      return Math.round(n / 4) * 4;
+    }
+
+    document.getElementById('calculate').addEventListener('click', () => {
+      const w = parseInt(document.getElementById('width').value, 10);
+      const h = parseInt(document.getElementById('height').value, 10);
+      if (isNaN(w) || isNaN(h)) {
+        alert('Please enter both width and height.');
+        return;
+      }
+      document.getElementById('adjWidth').textContent = closestMultipleOf4(w);
+      document.getElementById('adjHeight').textContent = closestMultipleOf4(h);
+      document.getElementById('result').style.display = 'block';
+    });
+
+    // Copy given text to clipboard (no success alert)
+    function copyText(text) {
+      navigator.clipboard.writeText(text)
+        .catch(err => alert('Failed to copy: ' + err));
+    }
+
+    document.getElementById('copyWidth').addEventListener('click', () => {
+      copyText(document.getElementById('adjWidth').textContent);
+    });
+    document.getElementById('copyHeight').addEventListener('click', () => {
+      copyText(document.getElementById('adjHeight').textContent);
+    });
+  </script>
+</body>
+</html>
